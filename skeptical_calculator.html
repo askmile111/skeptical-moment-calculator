@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skeptical Moment Calculator (SMC)</title>
+    <style>
+        /* Minimal high‑contrast styling – reduces sensory overload */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f5f5f5;
+            color: #000000;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            line-height: 1.8;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 30px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 12px;
+        }
+        .input-area {
+            margin-bottom: 25px;
+        }
+        textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 20px;
+            border: 2px solid #aaa;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+            background-color: #fafafa;
+            color: #000;
+        }
+        textarea:focus {
+            border-color: #000;
+            outline: none;
+            background-color: #fff;
+        }
+        .btn {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            font-size: 22px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #333;
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .btn-secondary {
+            background-color: #888;
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background-color: #666;
+        }
+        .output-area {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 6px;
+            border-left: 4px solid #000;
+            min-height: 80px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .output-area p {
+            margin-bottom: 12px;
+        }
+        .question-block {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 6px;
+        }
+        .question-text {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn-option {
+            flex: 1;
+            min-width: 100px;
+            padding: 12px 0;
+            font-size: 22px;
+            border: 2px solid #aaa;
+            border-radius: 6px;
+            background-color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.15s;
+        }
+        .btn-option:hover {
+            border-color: #000;
+            background-color: #e0e0e0;
+        }
+        .btn-option.selected-yes {
+            border-color: #000;
+            background-color: #000;
+            color: #fff;
+        }
+        .btn-option.selected-no {
+            border-color: #555;
+            background-color: #555;
+            color: #fff;
+        }
+        .btn-option:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .grounding-area {
+            margin-top: 20px;
+            padding: 15px;
+            border: 2px dashed #000;
+            border-radius: 6px;
+            background-color: #fafafa;
+            text-align: center;
+        }
+        .grounding-area .btn {
+            width: auto;
+            padding: 12px 40px;
+            margin-top: 10px;
+        }
+        .footnote {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 15px;
+            text-align: center;
+        }
+        .footnote strong {
+            color: #000;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .result-highlight {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 8px 0;
+        }
+        .probability-0 { color: #000; }
+        .probability-33 { color: #333; }
+        .probability-66 { color: #444; }
+        .probability-100 { color: #000; }
+        hr {
+            border: none;
+            border-top: 2px solid #ddd;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🧮 Skeptical Moment Calculator</h1>
+    <div class="subtitle">Helping you decide whether that voice is real</div>
+
+    <!-- Input area -->
+    <div class="input-area">
+        <label for="userInput" style="font-weight:bold; display:block; margin-bottom:6px;">Type the exact words you heard:</label>
+        <textarea id="userInput" placeholder="e.g., I am Ako, graduated from School A, I am low-quality, they are all yelling at me…"></textarea>
+        <button class="btn" id="submitBtn">Submit &amp; Analyze</button>
+    </div>
+
+    <!-- Output area (dynamically shows results or questions) -->
+    <div class="output-area" id="outputArea">
+        <p style="color:#888;">Type something above and click "Submit &amp; Analyze". The result will appear here.</p>
+    </div>
+
+    <!-- Grounding task area (hidden initially) -->
+    <div class="grounding-area hidden" id="groundingArea">
+        <p style="font-size:22px; font-weight:bold;">🖐️ Physical Grounding Task</p>
+        <p>Place your palm flat on the desk or wall, <strong>press firmly for 5 seconds</strong>, and feel the temperature and texture.</p>
+        <p>When done, click the button below to complete this session.</p>
+        <button class="btn" id="groundingDoneBtn">✅ Done – Reset</button>
+    </div>
+
+    <!-- Medical disclaimer -->
+    <div class="footnote">
+        <strong>⚠️ Medical Disclaimer</strong>: This tool is a cognitive‑aid prototype, not a medical device. It does not replace professional diagnosis or treatment. Always consult your physician before use.
+    </div>
+</div>
+
+<script>
+    (function() {
+        "use strict";
+
+        // ---------- Classic fallacy library (hard‑coded) ----------
+        const FALLACY_PATTERNS = [
+            {
+                id: 'FP_001_AKO',
+                // Trigger: all four keyword categories must be present (AND logic)
+                keywords: {
+                    belong: ['graduated', 'from', 'belongs', 'school', 'company', 'team'],
+                    negative: ['low-quality', 'sick', 'shameful', 'crazy', 'bad', 'stupid'],
+                    group: ['school', 'company', 'team', 'everyone', 'all', 'whole'],
+                    action: ['yell', 'shout', 'curse', 'mock', 'attack', 'blame', 'speak ill']
+                },
+                // Generate the falsification report
+                generateReport: function(text) {
+                    // Extract group name (simple regex)
+                    let group = 'that group';
+                    const match = text.match(/from\s*(.+?)\s+school|graduated\s+from\s*(.+?)\s+school|belongs\s+to\s*(.+?)\s+school/i);
+                    if (match) {
+                        for (let i = 1; i < match.length; i++) {
+                            if (match[i]) { group = match[i].trim(); break; }
+                        }
+                    }
+                    return `📐 Logical Falsification Report (#FP_001_AKO)
+
+[Classic fallacy detected: Individual property extrapolated to the whole group]
+
+Your logical chain: An individual (Ako) belongs to a group → Individual is low‑quality → The whole group is low‑quality → The whole group attacks the individual.
+
+Mathematical breakdown (three steps):
+
+1. Fallacy of Composition
+   From "Ako ∈ ${group}" and "Ako is low‑quality" you cannot conclude "${group} is low‑quality".
+   To prove a group property, you must prove ∀x ∈ ${group}, x is low‑quality.
+   But you only know it for x = Ako. All other members are unknown – this is the classic "hasty generalization".
+
+2. Event Substitution
+   "${group} is low‑quality" (a state description) is quietly replaced with "Ako said bad things about ${group}" (a speech act).
+   These are different predicates. The physical event "Ako opened his mouth and spoke" is missing – the causal chain is broken.
+
+3. Synchronised Attack Impossibility
+   "${group} everyone simultaneously shouts at Ako" requires all‑member information synchronisation + spatial synchronisation + temporal synchronisation.
+   In reality, the probability of such multi‑agent coordination ≈ 0 (inverse factorial of group size).
+
+Conclusion: This signal has no real‑number solution. It is internally generated noise and can be safely ignored.`;
+                }
+            }
+            // You can add more patterns here, e.g., "TV people are targeting me", "food is poisoned", etc.
+        ];
+
+        // ---------- DOM elements ----------
+        const userInput = document.getElementById('userInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const outputArea = document.getElementById('outputArea');
+        const groundingArea = document.getElementById('groundingArea');
+        const groundingDoneBtn = document.getElementById('groundingDoneBtn');
+
+        // State
+        let currentState = 'idle'; // idle | questions | result | grounded
+        let questionAnswers = []; // true = reality‑positive, false = hallucination‑positive
+        let questionButtons = [];
+
+        // ---------- Helper functions ----------
+        function clearOutput() {
+            outputArea.innerHTML = '';
+        }
+
+        function showText(text) {
+            outputArea.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
+        }
+
+        function showHTML(html) {
+            outputArea.innerHTML = html;
+        }
+
+        function resetAll() {
+            groundingArea.classList.add('hidden');
+            clearOutput();
+            showText('Type something above and click "Submit &amp; Analyze". The result will appear here.');
+            currentState = 'idle';
+            questionAnswers = [];
+            questionButtons = [];
+            submitBtn.disabled = false;
+        }
+
+        // Check if input matches any classic fallacy
+        function matchFallacy(text) {
+            const lower = text.toLowerCase();
+            for (let pattern of FALLACY_PATTERNS) {
+                const kw = pattern.keywords;
+                const hasBelong = kw.belong.some(word => lower.includes(word));
+                const hasNegative = kw.negative.some(word => lower.includes(word));
+                const hasGroup = kw.group.some(word => lower.includes(word));
+                const hasAction = kw.action.some(word => lower.includes(word));
+                if (hasBelong && hasNegative && hasGroup && hasAction) {
+                    return pattern;
+                }
+            }
+            return null;
+        }
+
+        // Display three questions (generic fallback)
+        function showQuestions() {
+            currentState = 'questions';
+            questionAnswers = [null, null, null];
+
+            const questions = [
+                'Is this voice heard through air‑vibration (sound waves) sensed by your ears, or does it arise directly inside your head?',
+                'If someone else were beside you, could they hear this voice?',
+                'Does the content of the voice match what you physically see with your eyes right now?'
+            ];
+            const optionLabels = [
+                ['👂 Heard by ears', '🧠 Directly in head'],
+                ['✅ Yes', '❌ No'],
+                ['✅ Yes', '❌ No']
+            ];
+
+            let html = `<p style="font-weight:bold; font-size:22px;">Please answer these three questions (click to select):</p>`;
+            for (let i = 0; i < 3; i++) {
+                html += `<div class="question-block" id="qblock${i}">
+                    <div class="question-text">${i+1}. ${questions[i]}</div>
+                    <div class="btn-group" id="qgroup${i}">
+                        <button class="btn-option" data-q="${i}" data-value="true">${optionLabels[i][0]}</button>
+                        <button class="btn-option" data-q="${i}" data-value="false">${optionLabels[i][1]}</button>
+                    </div>
+                </div>`;
+            }
+            html += `<p style="margin-top:10px; color:#555;">After all three are answered, the probability will be computed automatically.</p>`;
+            showHTML(html);
+
+            // Bind events
+            for (let i = 0; i < 3; i++) {
+                const btns = document.querySelectorAll(`#qgroup${i} .btn-option`);
+                btns.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        const qIndex = parseInt(this.dataset.q);
+                        const value = this.dataset.value === 'true'; // true = reality, false = hallucination
+                        if (questionAnswers[qIndex] !== null) return; // already answered
+                        questionAnswers[qIndex] = value;
+                        const group = document.getElementById(`qgroup${qIndex}`);
+                        const allBtns = group.querySelectorAll('.btn-option');
+                        allBtns.forEach(b => {
+                            b.disabled = true;
+                            if (b.dataset.value === this.dataset.value) {
+                                b.classList.add(value ? 'selected-yes' : 'selected-no');
+                            }
+                        });
+                        // Check if all answered
+                        if (questionAnswers.every(ans => ans !== null)) {
+                            computeProbability();
+                        }
+                    });
+                });
+            }
+        }
+
+        // Compute probability and show result
+        function computeProbability() {
+            const countYes = questionAnswers.filter(v => v === true).length;
+            let prob = 0;
+            let msg = '';
+            if (countYes === 0) {
+                prob = 0;
+                msg = 'All three reality variables are absent. This is logically certain to be a hallucination – you can safely ignore it.';
+            } else if (countYes === 1) {
+                prob = 33;
+                msg = 'Insufficient variables. Consider recording with your phone to verify.';
+            } else if (countYes === 2) {
+                prob = 66;
+                msg = 'High likelihood of being real. Please check with people around you.';
+            } else { // 3
+                prob = 100;
+                msg = 'Fully consistent with reality. Trust your physical environment.';
+            }
+
+            let html = `<p class="result-highlight probability-${prob}">🧮 Reality Probability = ${prob}%</p>`;
+            html += `<p>${msg}</p>`;
+            html += `<hr>`;
+            html += `<p><strong>🖐️ Next step (physical grounding):</strong> Place your palm flat on the desk, press firmly for 5 seconds, feel the temperature and texture.</p>`;
+            html += `<p><button class="btn btn-secondary" id="showGroundingBtn">I have pressed – show grounding confirmation</button></p>`;
+            showHTML(html);
+
+            document.getElementById('showGroundingBtn').addEventListener('click', function() {
+                groundingArea.classList.remove('hidden');
+                showText('✅ Grounding task is shown below. After pressing, click "Done – Reset".');
+                currentState = 'result';
+            });
+
+            currentState = 'result';
+        }
+
+        // Handle classic fallacy hit
+        function handleFallacy(pattern, text) {
+            const report = pattern.generateReport(text);
+            showText(report);
+            groundingArea.classList.remove('hidden');
+            currentState = 'result';
+        }
+
+        // Main submission logic
+        function handleSubmit() {
+            const text = userInput.value.trim();
+            if (!text) {
+                showText('⚠️ Please type the voice you heard.');
+                return;
+            }
+
+            groundingArea.classList.add('hidden');
+
+            // 1. Check classic library
+            const matched = matchFallacy(text);
+            if (matched) {
+                handleFallacy(matched, text);
+                return;
+            }
+
+            // 2. No match -> show three questions
+            showQuestions();
+        }
+
+        // ---------- Event bindings ----------
+        submitBtn.addEventListener('click', handleSubmit);
+
+        // Ctrl+Enter (Cmd+Enter on Mac) shortcut
+        userInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                submitBtn.click();
+            }
+        });
+
+        // Grounding done -> reset
+        groundingDoneBtn.addEventListener('click', function() {
+            resetAll();
+            userInput.value = '';
+        });
+
+        // Initial state
+        resetAll();
+
+        console.log('SMC loaded. Type a voice description and submit.');
+    })();
+</script>
+</body>
+</html>
