@@ -38,21 +38,17 @@ After the logic check, the tool suggests a simple grounding action: press your h
 
 ---
 
-## Requesting a Trial
+## Feedback
 
-The tool is currently in **v0.1** (core logic validated with limited test cases).
+If you've tried the tool and want to share feedback, please **open an issue** on this repository. I read everything and use feedback to improve the tool.
 
-**If you are a stabilized patient or a clinician and would like to try it**, the HTML file is available in this repository. Simply download `index.html` and open it in any browser. No installation. No internet. No strings attached.
-
-We do **not** actively recruit users or push this tool on anyone. It sits here. If someone finds it useful, they're welcome to use it.
-
-Feedback is welcome via GitHub Issues, but there is no response timeline. This is a public-good project, not a startup.
+**Please note:** I may not reply to every issue individually. This is a public-good side project, not a startup. There is no response timeline.
 
 ---
 
 ## Medical Disclaimer
 
-> **This tool is a cognitive aid, not a medical device.** It does **not** replace medication, psychotherapy, or professional diagnosis. Always consult with your attending physician. It is intended for daily grounding practice during stable periods only. If you are in crisis, contact your doctor or emergency services immediately.
+> **This tool is a cognitive aid, not a medical device.** It does **not** replace medication, psychotherapy, or professional diagnosis. Always consult with your attending physician before using any self-management tool. It is intended for daily grounding practice during stable periods only. If you are in crisis, contact your doctor or emergency services immediately.
 
 ---
 
@@ -82,5 +78,5 @@ MIT
 
 ---
 
-**Last Updated**: 2026-06-28
+**Last Updated**: 2026-06-28  
 **Version**: v0.1
