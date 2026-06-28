@@ -1,8 +1,10 @@
-# Skeptical Moment Calculator (SMC)
+# Skeptical Moment Calculator
 
-A free, offline, logic‑based tool for individuals with schizophrenia who experience auditory hallucinations. It helps answer one critical question during moments of doubt:
+A free, offline, logic-based tool for individuals recovering from schizophrenia who still experience residual auditory hallucinations. It helps answer one question during moments of doubt:
 
-> *"Is this voice real, or is it generated inside my head?"*
+> *"Is this voice real, or is it a hallucination?"*
+
+**Who this is for:** People who have been stabilized on medication, have insight into their condition, and need a quick logic checkpoint to break the rumination cycle. Not for acute crisis.
 
 ---
 
@@ -10,56 +12,47 @@ A free, offline, logic‑based tool for individuals with schizophrenia who exper
 
 - ✅ **Zero dependencies** – pure HTML + CSS + JavaScript
 - ✅ **Fully offline** – no internet required after download
-- ✅ **Privacy‑first** – nothing is stored or transmitted
+- ✅ **Privacy-first** – nothing is stored or transmitted
 - ✅ **Instant response** – < 0.01 seconds per check
-- ✅ **Free and open‑source** – no commercial intent
+- ✅ **Free and open-source** – no commercial intent
 - ✅ **Extensible** – new fallacy patterns can be added easily
 
 ---
 
 ## How It Works
 
-### 1. Classic Fallacy Interceptor
-Detects common delusional reasoning patterns (e.g., the "Ako chain") and outputs a mathematical falsification report covering:
-- **Fallacy of composition** (individual property ≠ group property)
-- **Event substitution** (state vs. speech act – missing causal link)
-- **Synchronised attack impossibility** (multi‑agent coordination probability ≈ 0)
+The tool analyzes the text you paste in — no questions, no interactions, no judgments. It checks for two types of logical flaws:
 
-### 2. Generic Reality‑Check Questions
-If no classic pattern is matched, the system asks three simple yes/no questions:
+### 1. False Cause-Effect Chains
+Detects when a voice claims that one thing causes another, but no physical causal link exists. For example:
 
-| # | Question |
-| :--- | :--- |
-| 1 | Is the voice heard through **air‑vibration (ears)** or does it arise directly inside your head? |
-| 2 | If someone else were beside you, **could they hear** it? |
-| 3 | Does the content match **what you physically see right now**? |
+- "He glanced at me → therefore he knows my secrets" (appearance cannot reveal thoughts)
+- "The TV is talking about me" (public broadcast cannot target an individual)
+- "One person said something → therefore everyone is against me" (individual ≠ group)
 
-Based on the answers, SMC calculates a **reality probability**:
-- 0% → Logically certain hallucination – safe to ignore
-- 33% → Suggest audio recording for verification
-- 66% → Suggest checking with people nearby
-- 100% → Trust your physical environment
+### 2. Sourceless Accusations
+Detects when a voice makes a claim about someone harming or watching you, but you never describe how you learned this information. If there's no sensory source (heard, saw, someone told), the information likely originated internally.
 
-### 3. Mandatory Physical Grounding
-Every session ends with a tactile grounding task to shift attention away from auditory/language centres and break the cognitive loop.
+### 3. Physical Grounding Prompt
+After the logic check, the tool suggests a simple grounding action: press your hand against a solid surface and feel its hardness. This shifts attention away from auditory processing and helps break the cognitive loop.
 
 ---
 
 ## Requesting a Trial
 
-The tool is currently in **v0.1** (core logic validated with simulated cases).  
+The tool is currently in **v0.1** (core logic validated with limited test cases).
 
-**If you are a patient or a clinician and would like to try it**, you may request the single HTML file by opening an issue or contacting us via the method provided in this repository. The file will be sent **free of charge**, with no strings attached.
+**If you are a stabilized patient or a clinician and would like to try it**, the HTML file is available in this repository. Simply download `index.html` and open it in any browser. No installation. No internet. No strings attached.
 
-We do **not** actively promote or push this tool to anyone – we respect patient autonomy and clinical boundaries.
+We do **not** actively recruit users or push this tool on anyone. It sits here. If someone finds it useful, they're welcome to use it.
 
-Feedback from real‑world use is welcome and will be used to refine future versions (v0.2 and beyond).
+Feedback is welcome via GitHub Issues, but there is no response timeline. This is a public-good project, not a startup.
 
 ---
 
 ## Medical Disclaimer
 
-> **This tool is a cognitive‑aid prototype, not a medical device.** It does **not** replace medication, psychotherapy, or professional diagnosis. Always consult with your attending physician before using any self‑management tool. The SMC is intended for **daily grounding practice** during stable periods only.
+> **This tool is a cognitive aid, not a medical device.** It does **not** replace medication, psychotherapy, or professional diagnosis. Always consult with your attending physician. It is intended for daily grounding practice during stable periods only. If you are in crisis, contact your doctor or emergency services immediately.
 
 ---
 
@@ -67,27 +60,27 @@ Feedback from real‑world use is welcome and will be used to refine future vers
 
 | Version | Planned Improvements |
 | :--- | :--- |
-| v0.1 (current) | Core logic, Ako chain interceptor, 3‑question fallback, grounding action |
-| v0.2 | Negation detection, "Quick Mode" for repeated use, multiple random grounding actions, anonymous usage count (no content stored) |
-| v0.3 | Custom fallacy pattern editor (for clinicians to add patient‑specific delusions) |
+| v0.1 (current) | False cause-effect detection, sourceless accusation detection, grounding prompt |
+| v0.2 | More fallacy patterns from user-submitted examples, improved negation handling, multiple random grounding actions |
+| v0.3 | Custom fallacy pattern editor (for clinicians to add patient-specific patterns) |
+
+*No timeline. Updates happen when they happen.*
 
 ---
 
 ## About the Project
 
-The Skeptical Moment Calculator was built in ~4 hours as a **personal engineering exercise** – a response to the realisation that complex AI models (vector databases, sensor fusion) are often too slow, heavy, and privacy‑invasive for real‑world mental health support.
+Built in a few hours as a personal engineering exercise. The design philosophy:
 
-The design philosophy is simple:
-
-> *When you're unsure, you don't need a black‑box AI. You need a transparent, deterministic, and verifiable process that you can trust.*
+> *When you're unsure whether a voice is real, you don't need a black-box AI. You need a transparent, deterministic process you can trust — and that runs entirely on your own device.*
 
 ---
 
 ## License
 
-MIT – free for personal and non‑commercial use.
+MIT
 
 ---
 
-**Last Updated**: 2026‑06‑27  
-**Version**: v0.1 – ready for trial upon request
+**Last Updated**: 2026-06-28
+**Version**: v0.1
